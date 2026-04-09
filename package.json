@@ -1,5 +1,5 @@
 {
-  "name": "jwt-decoder-plus",
+  "name": "devtools",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -25,7 +25,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://your-username.github.io/your-repo",
+  "homepage": "https://anoop0.github.io/devtools",
   "browserslist": {
     "production": [
       ">0.2%",
