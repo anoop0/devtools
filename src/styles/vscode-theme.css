@@ -1,0 +1,68 @@
+:root {
+  --vscode-bg: #1e1e1e;
+  --vscode-panel: #252526;
+  --vscode-border: #333333;
+  --vscode-text: #d4d4d4;
+  --vscode-muted: #858585;
+  --vscode-accent: #3794ff;
+  --vscode-tab-active: #2c2c32;
+  --vscode-tab-inactive: #2d2d2d;
+  --vscode-hover: #2a2d2e;
+  --vscode-statusbar-bg: #007acc;
+  --vscode-statusbar-fg: #ffffff;
+  --vscode-danger: #f14c4c;
+  --vscode-warning: #cca700;
+  --vscode-success: #17a773;
+  --vscode-focus: #528bff;
+  --vscode-scrollbar: #232323;
+  --vscode-input-bg: #3e3e42;
+  --vscode-font-ui: system-ui, "Segoe UI", Arial, sans-serif;
+  --vscode-font-code: "Cascadia Code", Consolas, "Courier New", monospace;
+  /* JSON syntax highlighting colors */
+  --json-key: #43d1d1;
+  --json-string: #ce9178;
+  --json-number: #6a9955;
+  --json-float: #dcdcaa;
+  --json-boolean: #569cd6;
+  --json-null: #c586c0;
+  --json-brace: #d7ba7d;
+}
+
+body {
+  background: var(--vscode-bg);
+  color: var(--vscode-text);
+  font-family: var(--vscode-font-ui);
+}
+
+/* JSON Syntax highlighting */
+.json-key {
+  color: var(--json-key);
+}
+
+.json-string {
+  color: var(--json-string);
+}
+
+.json-number {
+  color: #3ca43e;
+}
+
+.json-int {
+  color: #58bcbc;
+}
+
+.json-float {
+  color: var(--json-float);
+}
+
+.json-boolean {
+  color: var(--json-boolean);
+}
+
+.json-null {
+  color: var(--json-null);
+}
+
+.json-brace {
+  color: var(--json-brace);
+}

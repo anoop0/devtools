@@ -1,0 +1,26 @@
+:root {
+  --vscode-bg: #1e1e1e;
+  --vscode-panel: #252526;
+  --vscode-border: #333333;
+  --vscode-text: #d4d4d4;
+  --vscode-muted: #858585;
+  --vscode-accent: #3794ff;
+  --vscode-tab-active: #2c2c32;
+  --vscode-tab-inactive: #2d2d2d;
+  --vscode-hover: #2a2d2e;
+  --vscode-statusbar-bg: #007acc;
+  --vscode-statusbar-fg: #ffffff;
+  --vscode-danger: #f14c4c;
+  --vscode-warning: #cca700;
+  --vscode-success: #17a773;
+  --vscode-focus: #528bff;
+  --vscode-scrollbar: #232323;
+  --vscode-font-ui: system-ui, "Segoe UI", Arial, sans-serif;
+  --vscode-font-code: "Cascadia Code", Consolas, "Courier New", monospace;
+}
+
+body {
+  background: var(--vscode-bg);
+  color: var(--vscode-text);
+  font-family: var(--vscode-font-ui);
+}
