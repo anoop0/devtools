@@ -1,0 +1,203 @@
+.vscode-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--vscode-bg);
+}
+
+.vscode-main {
+  display: flex;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.vscode-activitybar {
+  width: 48px;
+  background: var(--vscode-panel);
+  border-right: 1px solid var(--vscode-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  gap: 8px;
+}
+
+.vscode-activitybar .vscode-activitybar-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--vscode-muted);
+  transition: background 0.15s, color 0.15s;
+}
+.vscode-activitybar .vscode-activitybar-icon.active,
+.vscode-activitybar .vscode-activitybar-icon:focus {
+  background: var(--vscode-hover);
+  color: var(--vscode-accent);
+  outline: 2px solid var(--vscode-focus);
+}
+.vscode-activitybar .vscode-activitybar-icon:active {
+  background: var(--vscode-tab-active);
+}
+
+.vscode-sidebar {
+  width: 200px;
+  background: var(--vscode-panel);
+  border-right: 1px solid var(--vscode-border);
+  min-width: 0;
+  display: none; /* Optional: show if needed */
+}
+
+.vscode-editorarea {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--vscode-bg);
+}
+
+.vscode-editortabs {
+  display: flex;
+  align-items: flex-end;
+  background: var(--vscode-panel);
+  border-bottom: 1px solid var(--vscode-border);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.vscode-editortab {
+  padding: 0 20px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: var(--vscode-tab-inactive);
+  color: var(--vscode-muted);
+  border: none;
+  border-right: 1px solid var(--vscode-border);
+  font-family: var(--vscode-font-ui);
+  font-size: 15px;
+  outline: none;
+  transition: background 0.15s, color 0.15s;
+}
+.vscode-editortab.active {
+  background: var(--vscode-tab-active);
+  color: var(--vscode-text);
+  border-bottom: 2px solid var(--vscode-accent);
+  font-weight: 500;
+}
+.vscode-editortab:focus {
+  outline: 2px solid var(--vscode-focus);
+}
+
+.vscode-editorcontent {
+  flex: 1 1 0;
+  overflow: auto;
+  background: var(--vscode-bg);
+  padding: 24px;
+  font-family: var(--vscode-font-ui);
+}
+
+.vscode-statusbar {
+  height: 28px;
+  background: var(--vscode-statusbar-bg);
+  color: var(--vscode-statusbar-fg);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  font-size: 13px;
+  border-top: 1px solid var(--vscode-border);
+  justify-content: space-between;
+}
+
+.vscode-input,
+.vscode-textarea {
+  background: var(--vscode-panel);
+  color: var(--vscode-text);
+  border: 1px solid var(--vscode-border);
+  border-radius: 4px;
+  padding: 8px;
+  font-family: var(--vscode-font-code);
+  font-size: 15px;
+  width: 100%;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+.vscode-input:focus,
+.vscode-textarea:focus {
+  border-color: var(--vscode-accent);
+  box-shadow: 0 0 0 2px var(--vscode-focus);
+  outline: none;
+}
+
+.vscode-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--vscode-panel);
+  color: var(--vscode-text);
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+.vscode-table th,
+.vscode-table td {
+  border: 1px solid var(--vscode-border);
+  padding: 8px 12px;
+}
+.vscode-table th {
+  background: var(--vscode-tab-active);
+  color: var(--vscode-text);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.vscode-table tr:hover {
+  background: var(--vscode-hover);
+}
+
+.vscode-btn {
+  background: var(--vscode-panel);
+  color: var(--vscode-text);
+  border: 1px solid var(--vscode-border);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-family: var(--vscode-font-ui);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s, border 0.15s;
+}
+.vscode-btn:hover,
+.vscode-btn:focus {
+  background: var(--vscode-hover);
+  border-color: var(--vscode-accent);
+  outline: none;
+}
+
+/* JWT Claims Table Styling */
+.exp-claim-row {
+  background: rgba(79, 185, 160, 0.15) !important;
+  border-left: 3px solid #4fb9a0 !important;
+}
+
+.exp-claim-row:hover {
+  background: rgba(79, 185, 160, 0.25) !important;
+}
+
+@media (max-width: 700px) {
+  .vscode-sidebar {
+    display: none;
+  }
+  .vscode-activitybar {
+    width: 44px;
+    min-width: 44px;
+    padding: 4px 0;
+  }
+  .vscode-editortabs {
+    font-size: 13px;
+  }
+  .vscode-editorcontent {
+    padding: 10px;
+  }
+}
