@@ -122,24 +122,98 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
     const text = (e.clipboardData || window.clipboardData).getData("text").trim();
     setJwtToken(text);
   };
-  const handleInputJWT = (e) => {
-    const text = e.currentTarget.value;
+
+  // Get JWT parts for visualization
+  const getJWTParts = () => {
+    if (!jwtToken) return null;
+    const parts = jwtToken.split('.');
+    return parts.length === 3 ? { header: parts[0], payload: parts[1], signature: parts[2] } : null;
+  };
+
+  const jwtParts = getJWTParts();
+
+  // Ref for the input div
+  const inputDivRef = useRef(null);
+
+  const handleInputDiv = (e) => {
+    const text = e.currentTarget.textContent || "";
     setJwtToken(text);
+  };
+
+  // Render highlighted tokens
+  const renderHighlightedJWT = () => {
+    if (!jwtParts) return jwtToken;
+    return (
+      <>
+        <span style={{ color: "#4fb9a0" }}>{jwtParts.header}</span>
+        <span style={{ color: "#888" }}>.</span>
+        <span style={{ color: "#d7ba7d" }}>{jwtParts.payload}</span>
+        <span style={{ color: "#888" }}>.</span>
+        <span style={{ color: "#c586c0" }}>{jwtParts.signature}</span>
+      </>
+    );
   };
 
   return (
     <div>
       <label htmlFor="jwt-input" style={{ fontWeight: 500 }}>JWT Token</label>
-      <textarea
+      <div
+        ref={inputDivRef}
         id="jwt-input"
         className="vscode-textarea"
-        value={jwtToken}
-        onChange={handleInputJWT}
         onPaste={handlePasteJWT}
-        placeholder="Paste your JWT token here"
-        style={{ minHeight: 112, marginBottom: 16, resize: "none" }}
+        onInput={handleInputDiv}
+        onKeyDown={handleSelectAll}
+        style={{
+          minHeight: 112,
+          marginBottom: 16,
+          resize: "none",
+          padding: "10px 8px",
+          whiteSpace: "pre-wrap",
+          wordWrap: "break-word",
+          outline: "none",
+          cursor: "text"
+        }}
+        role="textbox"
+        tabIndex={0}
         aria-label="Paste your JWT token here"
-      />
+      >
+        {renderHighlightedJWT()}
+      </div>
+      {/* Project Description - visible only when no JWT token is present */}
+      {!jwtToken && (
+        <section className="project-description" style={{
+          background: "#23232e",
+          color: "#f8f8f2",
+          borderRadius: 8,
+          padding: 32,
+          margin: "32px auto 24px auto",
+          maxWidth: 600,
+          boxShadow: "0 2px 16px #000a",
+          textAlign: "left"
+        }}>
+          <h1 style={{ fontSize: 28, marginBottom: 12 }}>JWT Decoder Plus</h1>
+          <p style={{ fontSize: 18, marginBottom: 16 }}>
+            <strong>JWT Decoder Plus</strong> is a simple, open-source web tool for decoding JWT tokens and parsing JSON, built with React.
+          </p>
+          <ul style={{ fontSize: 16, marginBottom: 16, paddingLeft: 24 }}>
+            <li>🔑 Instantly decode and inspect JWT tokens visually</li>
+            <li>🧩 Parse and pretty-print JSON with error highlighting</li>
+            <li>⏳ View claim details, including expiration countdown</li>
+            <li>✨ Responsive, modern UI for quick debugging</li>
+          </ul>
+          <div style={{ fontSize: 15, color: "#dcdcaa", marginBottom: 8 }}>
+            <strong>How to use:</strong>
+            <ol style={{ margin: "8px 0 0 20px" }}>
+              <li>Paste your JWT token above to decode and view its claims.</li>
+              <li>Switch to the JSON Parser tab to validate and pretty-print JSON.</li>
+            </ol>
+          </div>
+          <div style={{ fontSize: 14, color: "#b5cea8" }}>
+            <strong>Open Source:</strong> <a href="https://github.com/anoop0/devtools" target="_blank" rel="noopener noreferrer" style={{ color: "#4fb9a0" }}>View on GitHub</a>
+          </div>
+        </section>
+      )}
       {decodeError && <div className="error-message" style={{ color: "var(--vscode-danger)", marginBottom: 12 }}>{decodeError}</div>}
       {decodedToken && (
         <div>
