@@ -125,12 +125,14 @@
   font-size: 15px;
   width: 100%;
   transition: border 0.15s, box-shadow 0.15s;
+  resize: vertical;
 }
 .vscode-input:focus,
 .vscode-textarea:focus {
   border-color: var(--vscode-accent);
   box-shadow: 0 0 0 2px var(--vscode-focus);
   outline: none;
+  resize: vertical;
 }
 
 .vscode-table {

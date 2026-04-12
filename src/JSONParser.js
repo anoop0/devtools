@@ -270,7 +270,19 @@ function JSONParser({ jsonInput, setJsonInput, setStatus }) {
             className="pretty-json colorized-json"
             tabIndex={0}
             onKeyDown={handleSelectAll}
-            style={{ fontFamily: "var(--vscode-font-code)", background: "var(--vscode-panel)", padding: 12, borderRadius: 4 }}
+            style={{
+              fontFamily: "var(--vscode-font-code)",
+              background: "var(--vscode-panel)",
+              padding: 12,
+              borderRadius: 4,
+              ...(isCompact && {
+                maxHeight: "400px",
+                overflowX: "auto",
+                overflowY: "auto",
+                wordWrap: "break-word",
+                whiteSpace: "pre-wrap"
+              })
+            }}
             dangerouslySetInnerHTML={{ __html: getFormattedjson() }}
           />
         </div>

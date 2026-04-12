@@ -137,7 +137,7 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
         onChange={handleInputJWT}
         onPaste={handlePasteJWT}
         placeholder="Paste your JWT token here"
-        style={{ minHeight: 112, marginBottom: 16 }}
+        style={{ minHeight: 112, marginBottom: 16, resize: "none" }}
         aria-label="Paste your JWT token here"
       />
       {decodeError && <div className="error-message" style={{ color: "var(--vscode-danger)", marginBottom: 12 }}>{decodeError}</div>}
@@ -212,7 +212,19 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
                 className="pretty-json colorized-json"
                 tabIndex={0}
                 onKeyDown={handleSelectAll}
-                style={{ fontFamily: "var(--vscode-font-code)", background: "var(--vscode-panel)", padding: 12, borderRadius: 4 }}
+                style={{
+                  fontFamily: "var(--vscode-font-code)",
+                  background: "var(--vscode-panel)",
+                  padding: 12,
+                  borderRadius: 4,
+                  ...(isCompact && {
+                    maxHeight: "400px",
+                    overflowX: "auto",
+                    overflowY: "auto",
+                    wordWrap: "break-word",
+                    whiteSpace: "pre-wrap"
+                  })
+                }}
                 dangerouslySetInnerHTML={{ __html: syntaxHighlight(decodedToken, isCompact) }}
               />
             </div>

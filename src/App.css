@@ -1,5 +1,5 @@
 .exp-claim-row {
-  background: #ffe6b3 !important; /* pastel orange-yellow */
+  background: rgba(216, 185, 15, 0.18) !important;
   transition: background 0.2s;
 }
 .main-tab-header {
