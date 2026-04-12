@@ -55,6 +55,11 @@
   min-width: 80px;
   max-width: 200px;
 }
+.claims-table td:nth-child(2) {
+  width: 80%;
+  word-wrap: break-word;
+  max-width: 50rem;
+}
 .claims-section {
   margin: 0;
   width: 100%;
@@ -78,28 +83,28 @@
 .claims-table {
   width: 100%;
   table-layout: fixed;
-  word-break: break-all;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 1em;
 }
 .claims-section h2 {
   margin-top: 0;
   color: #23272e;
 }
-.claims-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  font-size: 1em;
-}
 .claims-table th, .claims-table td {
   border: 1px solid #e0e0e0;
   padding: 8px 12px;
   text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
 }
 .claim-time-value {
   display: flex;
   flex-direction: column;
   gap: 4px;
   line-height: 1.35;
+  word-wrap: break-word;
+  max-width: 50rem;
 }
 .claims-table th {
   background: #f4f4f4;
@@ -280,6 +285,10 @@ button:hover {
   overflow: auto;
   margin-top: 0;
   flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 .error-message {
   color: #d7263d;
