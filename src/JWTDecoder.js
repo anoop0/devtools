@@ -120,6 +120,11 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
   const handlePasteJWT = (e) => {
     e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData("text").trim();
+    // Clear the input div content first
+    if (inputDivRef.current) {
+      inputDivRef.current.textContent = '';
+    }
+    isUserTypingRef.current = false;
     setJwtToken(text);
   };
 
@@ -134,15 +139,42 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
 
   // Ref for the input div
   const inputDivRef = useRef(null);
+  const highlightDivRef = useRef(null);
+  const isUserTypingRef = useRef(false);
+
+  // Update DOM content only when pasting/external changes, not when user types
+  useEffect(() => {
+    if (inputDivRef.current && !isUserTypingRef.current) {
+      inputDivRef.current.textContent = jwtToken;
+      // Sync highlight div
+      if (highlightDivRef.current) {
+        highlightDivRef.current.scrollTop = inputDivRef.current.scrollTop;
+        highlightDivRef.current.scrollLeft = inputDivRef.current.scrollLeft;
+      }
+    }
+  }, [jwtToken]);
 
   const handleInputDiv = (e) => {
+    isUserTypingRef.current = true;
     const text = e.currentTarget.textContent || "";
     setJwtToken(text);
+    // Sync scroll position
+    if (highlightDivRef.current) {
+      highlightDivRef.current.scrollTop = e.currentTarget.scrollTop;
+      highlightDivRef.current.scrollLeft = e.currentTarget.scrollLeft;
+    }
+  };
+
+  const handleScroll = (e) => {
+    if (highlightDivRef.current) {
+      highlightDivRef.current.scrollTop = e.currentTarget.scrollTop;
+      highlightDivRef.current.scrollLeft = e.currentTarget.scrollLeft;
+    }
   };
 
   // Render highlighted tokens
   const renderHighlightedJWT = () => {
-    if (!jwtParts) return jwtToken;
+    if (!jwtParts) return jwtToken || '';
     return (
       <>
         <span style={{ color: "#4fb9a0" }}>{jwtParts.header}</span>
@@ -157,28 +189,75 @@ function JWTDecoder({ jwtToken, setJwtToken, activeTab, setStatus }) {
   return (
     <div>
       <label htmlFor="jwt-input" style={{ fontWeight: 500 }}>JWT Token</label>
-      <div
-        ref={inputDivRef}
-        id="jwt-input"
-        className="vscode-textarea"
-        onPaste={handlePasteJWT}
-        onInput={handleInputDiv}
-        onKeyDown={handleSelectAll}
-        style={{
-          minHeight: 112,
-          marginBottom: 16,
-          resize: "none",
-          padding: "10px 8px",
-          whiteSpace: "pre-wrap",
-          wordWrap: "break-word",
-          outline: "none",
-          cursor: "text"
-        }}
-        role="textbox"
-        tabIndex={0}
-        aria-label="Paste your JWT token here"
-      >
-        {renderHighlightedJWT()}
+      <div style={{ position: "relative", minHeight: 112, marginBottom: 16 }}>
+        {/* Highlight overlay (non-editable) */}
+        <div
+          ref={highlightDivRef}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            padding: "10px 8px",
+            boxSizing: "border-box",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            overflowY: "auto",
+            overflowX: "auto",
+            pointerEvents: "none",
+            zIndex: 0,
+            fontSize: "inherit",
+            fontFamily: "inherit",
+            lineHeight: "1.5",
+            color: "transparent"
+          }}
+        >
+          {renderHighlightedJWT()}
+        </div>
+        {/* Editable input (transparent text, visible caret) */}
+        <div
+          ref={inputDivRef}
+          id="jwt-input"
+          className="vscode-textarea"
+          onPaste={(e) => {
+            isUserTypingRef.current = true;
+            handlePasteJWT(e);
+          }}
+          onInput={handleInputDiv}
+          onKeyDown={handleSelectAll}
+          onScroll={handleScroll}
+          onBlur={() => {
+            isUserTypingRef.current = false;
+          }}
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+          style={{
+            position: "relative",
+            zIndex: 1,
+            minHeight: 112,
+            resize: "none",
+            padding: "10px 8px",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            outline: "none",
+            cursor: "text",
+            background: "transparent",
+            color: jwtParts ? "transparent" : "#d4d4d4",
+            caretColor: "#d4d4d4",
+            overflowY: "auto",
+            overflowX: "auto",
+            fontSize: "inherit",
+            fontFamily: "inherit",
+            lineHeight: "1.5",
+            margin: 0,
+            border: "1px solid var(--vscode-border)",
+            boxSizing: "border-box"
+          }}
+          role="textbox"
+          tabIndex={0}
+          aria-label="Paste your JWT token here"
+        />
       </div>
       {/* Project Description - visible only when no JWT token is present */}
       {!jwtToken && (
